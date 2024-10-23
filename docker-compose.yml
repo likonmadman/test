@@ -43,6 +43,21 @@ services:
       net:
         ipv4_address: 172.20.1.2
 
+  second_mysql:
+    image: mysql:8
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_DATABASE=test2
+      - MYSQL_ROOT_PASSWORD=test2
+      - MYSQL_USER=test2
+      - MYSQL_PASSWORD=test2
+    volumes:
+      - "./sourcefiles/second_mysql:/var/lib/mysql"
+    networks:
+      net:
+        ipv4_address: 172.20.1.8
+
   php-fpm:
     build: sourcefiles/php-fpm
     container_name: php-fpm

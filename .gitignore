@@ -32,6 +32,7 @@ Homestead.json
 .DS_Store
 sourcefiles/redis
 sourcefiles/mysql
+sourcefiles/second_mysql
 sourcefiles/log
 application/vendor/
 application/node_modules/!/application/composer.lock
