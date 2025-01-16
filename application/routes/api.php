@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['ApiAuth'])->group(function () {
-    Route::get('/cars', [\App\Http\Controllers\CarController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
