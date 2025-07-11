@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use OpenApi\Annotations as OA;
@@ -20,6 +21,8 @@ use OpenApi\Annotations as OA;
  */
 class Resource extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'type',
