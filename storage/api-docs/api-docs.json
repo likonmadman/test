@@ -1,0 +1,468 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Documentation",
+        "description": "Документация для api",
+        "contact": {
+            "email": "8likon8@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "Основной API"
+        }
+    ],
+    "paths": {
+        "/api/activities": {
+            "get": {
+                "tags": [
+                    "Activities"
+                ],
+                "summary": "Список видов деятельности",
+                "operationId": "53e7a0b67f6097ed90245000764b2e5e",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Activity"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ]
+            }
+        },
+        "/api/activities/search": {
+            "get": {
+                "tags": [
+                    "Activities"
+                ],
+                "summary": "Поиск деятельности по названию",
+                "operationId": "aee46f27943e927ac271eda8bded4359",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Название деятельности для поиска",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Розничная торговля"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Activity"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ]
+            }
+        },
+        "/api/buildings": {
+            "get": {
+                "tags": [
+                    "Buildings"
+                ],
+                "summary": "Список зданий",
+                "operationId": "704d1f7897ed7a3b8d29dacea66823ad",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Building"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ]
+            }
+        },
+        "/api/organizations/building/{buildingId}": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Список организаций в здании",
+                "operationId": "aae6fd413e5f76790a15e8b42e10919e",
+                "parameters": [
+                    {
+                        "name": "buildingId",
+                        "in": "path",
+                        "description": "ID здания",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "ООО Рога и Копыта"
+                                            },
+                                            "phones": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string",
+                                                    "example": "8-923-666-13-13"
+                                                }
+                                            },
+                                            "building": {
+                                                "type": "string",
+                                                "example": "г. Москва, ул. Ленина 1"
+                                            },
+                                            "activities": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string",
+                                                    "example": "Молочная продукция"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ]
+            }
+        },
+        "/api/organizations/activity/{activityId}": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Список организаций по виду деятельности",
+                "operationId": "3445549c7daa790ee5f137b6309631d3",
+                "parameters": [
+                    {
+                        "name": "activityId",
+                        "in": "path",
+                        "description": "ID вида деятельности",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Organization"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ]
+            }
+        },
+        "/api/organizations/radius": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Список организаций в радиусе",
+                "operationId": "d2b4e6612fb91764658089c856bd026b",
+                "parameters": [
+                    {
+                        "name": "lat",
+                        "in": "query",
+                        "description": "Широта точки поиска",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "example": 55.7558
+                        }
+                    },
+                    {
+                        "name": "lng",
+                        "in": "query",
+                        "description": "Долгота точки поиска",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "example": 37.6173
+                        }
+                    },
+                    {
+                        "name": "radius",
+                        "in": "query",
+                        "description": "Радиус поиска в километрах",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "example": 5
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Organization"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ]
+            }
+        },
+        "/api/organizations/{id}": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Информация об организации",
+                "operationId": "68e75650b204083886e125e02aaa2f4b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID организации",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Organization"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ]
+            }
+        },
+        "/api/organizations/search": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Поиск организации по имени",
+                "operationId": "40b8b5635dc20a80567117691e82d2e0",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Название организации (часть или полное)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Рога и Копыта"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Organization"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Activity": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Розничная торговля"
+                    },
+                    "children": {
+                        "description": "Подвиды деятельности",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer",
+                                    "example": 2
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": "Торговля продуктами питания"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Building": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "г. Москва, ул. Ленина 1, офис 3"
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 55.7558
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 37.6173
+                    }
+                },
+                "type": "object"
+            },
+            "Organization": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "ООО Рога и Копыта"
+                    },
+                    "phones": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "8-923-666-13-13"
+                        }
+                    },
+                    "building": {
+                        "type": "string",
+                        "example": "г. Москва, ул. Ленина 1"
+                    },
+                    "activities": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "Молочная продукция"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "apikey": {
+                "type": "apiKey",
+                "name": "X-API-KEY",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Activities"
+        },
+        {
+            "name": "Buildings"
+        },
+        {
+            "name": "Organizations"
+        }
+    ]
+}
