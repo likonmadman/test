@@ -1,0 +1,221 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Proxy Manager API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/proxies": {
+            "get": {
+                "tags": [
+                    "Прокси"
+                ],
+                "summary": "Список всех прокси",
+                "operationId": "713ff0621b0d792dfbdf4375d75b7095",
+                "responses": {
+                    "200": {
+                        "description": "Список прокси"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Прокси"
+                ],
+                "summary": "Добвить прокси",
+                "operationId": "be0d095f3b402505b66fb4d558a8d564",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "host",
+                                    "port",
+                                    "protocol"
+                                ],
+                                "properties": {
+                                    "host": {
+                                        "type": "string",
+                                        "example": "1.2.3.4"
+                                    },
+                                    "port": {
+                                        "type": "integer",
+                                        "example": 8080
+                                    },
+                                    "protocol": {
+                                        "type": "string",
+                                        "example": "http",
+                                        "enum": [
+                                            "http",
+                                            "https",
+                                            "socks4",
+                                            "socks5"
+                                        ]
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Прокси добавлен"
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    }
+                }
+            }
+        },
+        "/api/proxies/{proxy}": {
+            "put": {
+                "tags": [
+                    "Прокси"
+                ],
+                "summary": "Изменить прокси",
+                "operationId": "83799c0e34d132f012f33bacd7357fc2",
+                "parameters": [
+                    {
+                        "name": "proxy",
+                        "in": "path",
+                        "description": "ID прокси",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "host",
+                                    "port",
+                                    "protocol"
+                                ],
+                                "properties": {
+                                    "host": {
+                                        "type": "string",
+                                        "example": "1.2.3.4"
+                                    },
+                                    "port": {
+                                        "type": "integer",
+                                        "example": 8080
+                                    },
+                                    "protocol": {
+                                        "type": "string",
+                                        "example": "http",
+                                        "enum": [
+                                            "http",
+                                            "https",
+                                            "socks4",
+                                            "socks5"
+                                        ]
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "password": {
+                                        "description": "Пустой - пароль не меняется",
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Прокси изменён"
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Прокси"
+                ],
+                "summary": "Удалить прокси",
+                "operationId": "dbbccad4c6b1e5d5bea7234ebd322832",
+                "parameters": [
+                    {
+                        "name": "proxy",
+                        "in": "path",
+                        "description": "ID прокси",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Прокси удалён"
+                    }
+                }
+            }
+        },
+        "/api/proxies/{proxy}/check": {
+            "post": {
+                "tags": [
+                    "Прокси"
+                ],
+                "summary": "Проверить одну прокси",
+                "operationId": "40d6bc1aa286aa9e3663a466407603f3",
+                "parameters": [
+                    {
+                        "name": "proxy",
+                        "in": "path",
+                        "description": "ID прокси",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Прокси проверена"
+                    }
+                }
+            }
+        },
+        "/api/proxies/check-all": {
+            "post": {
+                "tags": [
+                    "Прокси"
+                ],
+                "summary": "Проверить все прокси",
+                "operationId": "c2175f1cb1541bc56326bc2a3fdde67a",
+                "responses": {
+                    "200": {
+                        "description": "Список прокси с новыми статусами"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Прокси",
+            "description": "Прокси"
+        }
+    ]
+}
